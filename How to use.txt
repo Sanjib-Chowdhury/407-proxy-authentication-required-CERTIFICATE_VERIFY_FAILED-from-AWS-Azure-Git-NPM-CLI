@@ -1,4 +1,6 @@
-Downlaod the file "Set Proxy Env variable.txt". Rename "Set Proxy Env variable.txt" to "Set Proxy Env variable.bat". Double-click "Set Proxy Env variable.bat". Accept & continue when prompted.
+
+
+Downlaod the file "AWS Azure fix.txt". Rename "AWS Azure fix.txt" to "AWS Azure fix.bat". Double-click "AWS Azure fix.bat". Accept & continue when prompted.
 or
-Copy the content of "Set Proxy Env variable.txt" & create a file "Set Proxy Env variable.bat" and paste the copied content. Save the file & double-click "Set Proxy Env variable.bat" to run
+Copy the content of "AWS Azure fix.txt" & create a file "AWS Azure fix.bat" and paste the copied content. Save the file & double-click "AWS Azure fix.bat" to run
 it. Accept & continue when prompted.

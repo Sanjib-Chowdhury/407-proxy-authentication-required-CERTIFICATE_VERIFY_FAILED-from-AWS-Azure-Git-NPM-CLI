@@ -1,0 +1,83 @@
+echo "**********************************************************************************************************"
+echo "* Purpose:                                                                                               *"
+echo "*    Frequent issues are observed with AWS CLI, AZURE CLI, NPM installer, Git Client etc. from behind    *"
+echo "*    corporate proxy. Most common issues are -                                                           *"
+echo "*    Cannot connect to proxy, 407 proxy authentication required, [SSL: CERTIFICATE_VERIFY_FAILED]        *"
+echo "*                                                                                                        *"
+echo "*    This script helps DevOps/ Developers & Security engineers to make these applications to work        *"
+echo "*    properly from behind the corporate proxy                                                            *"
+echo "*                                                                                                        *"
+echo "* How to use:                                                                                            *"
+echo "*    Run the script & enter details when prompted. Just hit enter when prompted to delete the entries.   *"
+echo "*                                                                                                        *"
+echo "*    A file out.txt will get generated. Read carefully the message displayed in the output file.         *"
+echo "*                                                                                                        *"
+echo "* Disclaimer:                                                                                            *"
+echo "*    There is no guarantee/ warranty that it will work as intended, though it worked fine during testing.*" 
+echo "*    Use at your own risk -:).                                                                           *"
+echo "*                                                                                                        *"
+echo "*    Report bug to sanjib_25@yahoo.com. Visit https://github.com/Sanjib-Chowdhury for more tools.        *"
+echo "**********************************************************************************************************"
+echo ""
+echo "**************************************************************" > out.txt
+echo "*              Azure AWS NPM Git Proxy fix                   *" >> out.txt
+echo "*           Report bug to sanjib_25@yahoo.com                *" >> out.txt
+echo "*  Visit https://github.com/Sanjib-Chowdhury for more tools  *" >> out.txt
+echo "**************************************************************" >> out.txt
+$date = date
+$date >> out.txt
+echo "**************************************************************" >> out.txt
+echo "Proxy settings before change:" >> out.txt
+$env:http_proxy >> out.txt
+$env:https_proxy >> out.txt
+echo "Certificate settings before change:" >> out.txt
+$env:SSL_CERT_FILE >> out.txt
+$env:REQUESTS_CA_BUNDLE >> out.txt
+$env:AWS_CA_BUNDLE >> out.txt
+echo "**************************************************************" >> out.txt
+# Get inputs from user
+$User1 = Read-Host 'Input system username & hit enter'
+$Token1 = Read-Host 'Input System Password & hit enter'
+$Proxyport = Read-Host 'Enter the Proxy IP & port without http:// (e.g. 10.0.0.1:8080) & hit enter'
+#Perform URL encoding
+$User = [uri]::EscapeDataString($User1)
+$Token = [uri]::EscapeDataString($Token1)
+
+#Adjust Proxy variable
+if (-not ([string]::IsNullOrEmpty($User1)) -and -not ([string]::IsNullOrEmpty($Token1)) -and -not ([string]::IsNullOrEmpty($Proxyport))){
+$Proxy = "http://${User}:$Token@$Proxyport"
+}elseif (-not ([string]::IsNullOrEmpty($Proxyport))){
+$Proxy = "http://$Proxyport"
+}else{
+$Proxy = "$null"
+}
+
+#Setup Environment variable
+[Environment]::SetEnvironmentVariable("http_proxy", "$Proxy", "User")
+[Environment]::SetEnvironmentVariable("https_proxy", "$Proxy", "User")
+
+echo "" >> out.txt
+
+#Get Proxy Certificate Path & name
+write-host "Browse the Proxy certificate file" -foreground black -background green
+
+Function Get-FileName($initialDirectory)
+{
+    [System.Reflection.Assembly]::LoadWithPartialName("System.windows.forms") | Out-Null    
+    $OpenFileDialog = New-Object System.Windows.Forms.OpenFileDialog
+    $OpenFileDialog.initialDirectory = $initialDirectory
+    $OpenFileDialog.ShowDialog() | Out-Null
+    $OpenFileDialog.filename
+}
+$cert = Get-FileName
+[void][Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+
+#Setup Environment variable
+[Environment]::SetEnvironmentVariable("SSL_CERT_FILE", "$cert", "User")
+[Environment]::SetEnvironmentVariable("REQUESTS_CA_BUNDLE", "$cert", "User")
+[Environment]::SetEnvironmentVariable("AWS_CA_BUNDLE", "$cert", "User")
+
+echo "**************************************************************" >> out.txt
+notepad out.txt
+
+

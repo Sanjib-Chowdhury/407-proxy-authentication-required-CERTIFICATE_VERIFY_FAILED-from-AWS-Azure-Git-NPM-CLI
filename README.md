@@ -13,3 +13,8 @@ az login The command failed with an unexpected error. Here is the traceback: HTT
 or
 
 HTTPSConnectionPool(host='login.microsoftonline.com', port=443): Max retries exceeded with url: /organizations/v2.0/.well-known/openid-configuration (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1125)'))) az_command_data_logger: HTTPSConnectionPool(host='login.microsoftonline.com', port=443): Max retries exceeded with url: /organizations/v2.0/.well-known/openid-configuration (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1125)')))
+
+How to use -
+
+    1. Convert the Sever certificate from .cer/ .crt to .pem (if not using proxy)/ proxy certificate (if using proxy) using OpenSSL/ Portecle or similar tools. Just renaming the certificate won't work.
+    2. Download and run the script from https://github.com/Sanjib-Chowdhury/407-proxy-authentication-required-CERTIFICATE_VERIFY_FAILED-from-AWS-Azure-Git-NPM-CLI
